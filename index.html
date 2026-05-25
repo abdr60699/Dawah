@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Peace Can Heal - Discover The Truth</title>
+  <style>
+    /* ===== RESET & BASE ===== */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      background: #000; color: #f5f5f7; line-height: 1.5; -webkit-font-smoothing: antialiased;
+    }
+    a { color: #2997ff; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    img { max-width: 100%; display: block; }
+
+    /* ===== NAVIGATION ===== */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      background: rgba(29,29,31,0.92); backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      height: 48px; display: flex; align-items: center; justify-content: center;
+    }
+    .nav-inner {
+      max-width: 1024px; width: 100%; display: flex; align-items: center;
+      justify-content: space-between; padding: 0 22px;
+    }
+    .nav-logo { font-size: 1.1rem; font-weight: 700; color: #f5f5f7; letter-spacing: -0.02em; }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links li a { color: #d1d1d6; font-size: 0.75rem; letter-spacing: 0.01em; transition: color 0.3s; }
+    .nav-links li a:hover { color: #fff; text-decoration: none; }
+    .nav-hamburger { display: none; background: none; border: none; cursor: pointer; padding: 8px; }
+    .nav-hamburger span { display: block; width: 18px; height: 1.5px; background: #f5f5f7; margin: 4px 0; transition: 0.3s; }
+
+    /* ===== HERO ===== */
+    .hero {
+      min-height: 100vh; display: flex; flex-direction: column; align-items: center;
+      justify-content: center; text-align: center; padding: 120px 24px 80px;
+      background: linear-gradient(180deg, #000 0%, #0a1628 50%, #000 100%);
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px; height: 600px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(30,144,100,0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-overtitle {
+      font-size: 1.1rem; color: #86868b; margin-bottom: 12px; letter-spacing: 0.02em;
+    }
+    .hero h1 {
+      font-size: clamp(2.5rem, 7vw, 5rem); font-weight: 700;
+      letter-spacing: -0.03em; line-height: 1.08;
+      background: linear-gradient(135deg, #1db954, #2997ff, #e2b714);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text; margin-bottom: 20px;
+    }
+    .hero p {
+      font-size: clamp(1rem, 2.5vw, 1.4rem); color: #a1a1a6;
+      max-width: 680px; margin: 0 auto 40px; line-height: 1.6;
+    }
+    .hero-cta {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 1.2rem; color: #2997ff; padding: 12px 28px;
+      border: 1px solid rgba(41,151,255,0.3); border-radius: 980px;
+      transition: all 0.3s;
+    }
+    .hero-cta:hover { background: rgba(41,151,255,0.1); text-decoration: none; }
+    .hero-cta .arrow { font-size: 1.4rem; transition: transform 0.3s; }
+    .hero-cta:hover .arrow { transform: translateX(4px); }
+
+    /* ===== SECTION STYLES ===== */
+    .section {
+      padding: 100px 24px; max-width: 1000px; margin: 0 auto;
+    }
+    .section-dark { background: #000; }
+    .section-gray { background: #111; }
+    .section-gradient-green { background: linear-gradient(180deg, #000, #061a0e, #000); }
+    .section-gradient-blue { background: linear-gradient(180deg, #000, #0a1628, #000); }
+    .section-gradient-gold { background: linear-gradient(180deg, #000, #1a1508, #000); }
+
+    .full-width { max-width: 100%; padding: 100px 24px; }
+    .inner { max-width: 1000px; margin: 0 auto; }
+
+    .section-label {
+      font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em;
+      color: #86868b; margin-bottom: 8px;
+    }
+    .section-title {
+      font-size: clamp(1.8rem, 5vw, 3.2rem); font-weight: 700;
+      letter-spacing: -0.025em; line-height: 1.1; margin-bottom: 16px;
+    }
+    .section-subtitle {
+      font-size: clamp(1rem, 2.5vw, 1.3rem); color: #86868b; line-height: 1.5;
+      margin-bottom: 40px;
+    }
+
+    /* ===== CONTENT BLOCKS ===== */
+    .content-block {
+      background: #1d1d1f; border-radius: 20px; padding: 48px 40px;
+      margin-bottom: 20px; position: relative; overflow: hidden;
+    }
+    .content-block h3 {
+      font-size: 1.6rem; font-weight: 600; margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
+    .content-block p { color: #a1a1a6; font-size: 1.05rem; line-height: 1.7; margin-bottom: 16px; }
+    .content-block .highlight { color: #f5f5f7; font-weight: 500; }
+    .content-block .highlight-red { color: #ff453a; font-weight: 600; }
+    .content-block .highlight-green { color: #30d158; font-weight: 600; }
+    .content-block .highlight-blue { color: #2997ff; font-weight: 600; }
+    .content-block .highlight-gold { color: #ffd60a; font-weight: 600; }
+
+    .verse-block {
+      border-left: 3px solid #30d158; padding: 20px 24px; margin: 20px 0;
+      background: rgba(48,209,88,0.05); border-radius: 0 12px 12px 0;
+    }
+    .verse-block.blue { border-left-color: #2997ff; background: rgba(41,151,255,0.05); }
+    .verse-block.gold { border-left-color: #ffd60a; background: rgba(255,214,10,0.05); }
+    .verse-block.red { border-left-color: #ff453a; background: rgba(255,69,58,0.05); }
+    .verse-block p { color: #d1d1d6; font-style: italic; margin-bottom: 8px; }
+    .verse-ref { font-size: 0.85rem; color: #86868b; font-style: normal !important; }
+
+    /* ===== GRID ===== */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+    /* ===== TABLE ===== */
+    .religion-table { width: 100%; border-collapse: separate; border-spacing: 0; border-radius: 16px; overflow: hidden; margin: 30px 0; }
+    .religion-table thead th {
+      background: #1d1d1f; padding: 16px 20px; text-align: left;
+      font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.08em;
+      color: #86868b; border-bottom: 1px solid #333;
+    }
+    .religion-table tbody td {
+      padding: 20px; background: #111; border-bottom: 1px solid #222;
+      font-size: 0.95rem; color: #d1d1d6; vertical-align: top;
+    }
+    .religion-table tbody tr:last-child td { border-bottom: none; }
+    .religion-table .religion-name {
+      font-weight: 700; font-size: 1rem; color: #f5f5f7;
+      white-space: nowrap;
+    }
+    .religion-table .religion-note { font-size: 0.8rem; color: #86868b; margin-top: 4px; display: block; }
+    .religion-table .table-highlight { color: #30d158; font-weight: 500; }
+    .religion-table .table-highlight-red { color: #ff453a; font-weight: 500; }
+    .religion-table .table-highlight-blue { color: #2997ff; font-weight: 500; }
+
+    /* ===== NUMBERED LIST ===== */
+    .num-list { list-style: none; counter-reset: item; }
+    .num-list li {
+      counter-increment: item; padding: 12px 0; border-bottom: 1px solid #222;
+      color: #d1d1d6; font-size: 1rem;
+    }
+    .num-list li:last-child { border-bottom: none; }
+    .num-list li::before {
+      content: counter(item); display: inline-flex; align-items: center;
+      justify-content: center; width: 28px; height: 28px; border-radius: 50%;
+      background: #30d158; color: #000; font-weight: 700; font-size: 0.8rem;
+      margin-right: 12px;
+    }
+
+    /* ===== QUOTE ===== */
+    .quote-block {
+      text-align: center; padding: 60px 40px; margin: 40px 0;
+      border-top: 1px solid #333; border-bottom: 1px solid #333;
+    }
+    .quote-block blockquote {
+      font-size: clamp(1.2rem, 3vw, 1.8rem); font-weight: 500;
+      font-style: italic; color: #f5f5f7; line-height: 1.5; margin-bottom: 16px;
+    }
+    .quote-block cite { font-size: 1rem; color: #86868b; font-style: normal; }
+
+    /* ===== NOTE CALLOUT ===== */
+    .note-callout {
+      display: flex; gap: 16px; padding: 20px 24px; border-radius: 12px;
+      background: rgba(255,69,58,0.08); border: 1px solid rgba(255,69,58,0.2);
+      margin: 20px 0;
+    }
+    .note-callout.green { background: rgba(48,209,88,0.08); border-color: rgba(48,209,88,0.2); }
+    .note-callout.blue { background: rgba(41,151,255,0.08); border-color: rgba(41,151,255,0.2); }
+    .note-callout .note-icon { font-size: 1.2rem; flex-shrink: 0; margin-top: 2px; }
+    .note-callout p { font-size: 0.95rem; color: #d1d1d6; }
+
+    /* ===== LINK CARD ===== */
+    .link-card {
+      display: flex; align-items: center; gap: 16px; padding: 20px 24px;
+      background: #1d1d1f; border-radius: 14px; margin: 12px 0; transition: background 0.3s;
+    }
+    .link-card:hover { background: #2d2d2f; text-decoration: none; }
+    .link-card .link-icon { font-size: 1.4rem; }
+    .link-card .link-text { color: #f5f5f7; font-weight: 500; }
+    .link-card .link-desc { color: #86868b; font-size: 0.85rem; }
+    .link-card .link-arrow { margin-left: auto; color: #86868b; font-size: 1.2rem; }
+
+    /* ===== DIVIDER ===== */
+    .section-divider {
+      height: 1px; background: linear-gradient(90deg, transparent, #333, transparent);
+      max-width: 800px; margin: 0 auto;
+    }
+
+    /* ===== IMAGE SECTION ===== */
+    .image-section {
+      width: 100%; max-width: 100%; overflow: hidden; margin: 20px 0;
+      border-radius: 20px;
+    }
+    .image-section img {
+      width: 100%; height: auto; display: block; border-radius: 20px;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: #111; padding: 60px 24px 40px; margin-top: 60px;
+    }
+    .footer-inner {
+      max-width: 1000px; margin: 0 auto;
+    }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 40px; margin-bottom: 40px; }
+    .footer-col h4 { font-size: 0.75rem; color: #86868b; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px; }
+    .footer-col a { display: block; color: #d1d1d6; font-size: 0.85rem; margin-bottom: 8px; }
+    .footer-bottom {
+      border-top: 1px solid #333; padding-top: 20px;
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;
+    }
+    .footer-bottom p { font-size: 0.8rem; color: #86868b; }
+    .footer-social { display: flex; gap: 16px; }
+    .footer-social a { color: #86868b; font-size: 0.85rem; }
+
+    /* ===== ANIMATIONS ===== */
+    .fade-in {
+      opacity: 0; transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .nav-hamburger { display: block; }
+      nav.open .nav-links {
+        display: flex; flex-direction: column; position: absolute;
+        top: 48px; left: 0; right: 0; background: rgba(29,29,31,0.98);
+        padding: 20px 24px; gap: 16px;
+      }
+      .grid-2 { grid-template-columns: 1fr; }
+      .content-block { padding: 32px 24px; }
+      .section { padding: 60px 20px; }
+      .full-width { padding: 60px 20px; }
+      .footer-links { flex-direction: column; gap: 24px; }
+      .religion-table { font-size: 0.85rem; }
+      .religion-table thead th, .religion-table tbody td { padding: 12px 10px; }
+      .quote-block { padding: 40px 20px; }
+    }
+    @media (max-width: 480px) {
+      .religion-table { display: block; overflow-x: auto; white-space: normal; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== NAVIGATION ===== -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <div class="nav-logo">Peace Can Heal</div>
+    <ul class="nav-links">
+      <li><a href="#introduction">Introduction</a></li>
+      <li><a href="#why-religion">Why Religion</a></li>
+      <li><a href="#one-god">One God</a></li>
+      <li><a href="#muhammad">Prophet Muhammad</a></li>
+      <li><a href="#quran-science">Quran & Science</a></li>
+      <li><a href="#life-after-death">Life After Death</a></li>
+      <li><a href="#resources">Resources</a></li>
+    </ul>
+    <button class="nav-hamburger" onclick="document.getElementById('navbar').classList.toggle('open')" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="top">
+  <p class="hero-overtitle fade-in">Respected Sir/Madam, kindly give 11 minutes to read fully with an open mindset</p>
+  <h1 class="fade-in">Discover The Truth</h1>
+  <p class="fade-in">Rethink about your purpose of life &amp; Prophet Muhammad (PBUH) is the KALKI AVATAR? Kalki avatar already came? Is there life After Death?</p>
+  <a href="#introduction" class="hero-cta fade-in">Begin Reading <span class="arrow">&rsaquo;</span></a>
+</section>
+
+<!-- ===== SECTION 1: INTRODUCTION (Image 1) ===== -->
+<div class="section-divider"></div>
+<div class="full-width section-gradient-green" id="introduction">
+  <div class="inner">
+    <p class="section-label fade-in">Page 1</p>
+    <h2 class="section-title fade-in" style="color:#30d158;">Open Your Mind</h2>
+    <p class="section-subtitle fade-in">Respected Sir/Madam, kindly give 11 minutes to read fully with an open mindset &amp; rethink about your purpose of life &amp; Prophet Muhammad (pbuh) is the KALKI AVATAR ? Kalki avatar already came? Is there life After Death?</p>
+
+    <div class="content-block fade-in">
+      <h3>Ever think about life's cycle?</h3>
+      <p>We're born, work hard to save money, then we die. Sometimes it Seems pointless, especially if we can't enjoy what we save. Ever wonder about not being born? <span class="highlight-red">Are You an Atheist?</span> | <span class="highlight">Why Should a Human Being Follow a Religion?</span> | <span class="highlight-gold">We, as human beings, were fools. We accept the test of this world.</span> Answers are there on the next pages.</p>
+    </div>
+
+    <div class="content-block fade-in">
+      <h3>* Kindly follow what is common between us &amp; you at least *</h3>
+      <p>All religious <span class="highlight">[ Christianity = Hinduism = Islam = Judaism = Sikhism = Zoroastrianism or Parsism ]</span> scriptures confirm that there is only <span class="highlight-green">One God (without Images &amp; idols)</span> <span class="highlight-red">and acknowledge the arrival of Prophet MUHAMMAD (PBUH)</span> <span class="highlight-blue">Turn Next Pages for Proof.</span> However, Many do not know this because their preachers/scholars are hiding the facts for their worldly benefits.</p>
+    </div>
+
+    <div class="verse-block fade-in">
+      <p><span class="highlight-green">One of the Master Key for Success</span> Quran Chapter 3: Verse 64 =&gt; Say, "O People of the Scripture, <strong>come to a word that is equitable between us and you</strong> - that we will not worship except Allah and not associate anything with Him and not take one another as lords instead of Allah." But if they turn away, then say, "Bear witness that we are Muslims [submitting to Him].</p>
+      <span class="verse-ref">Quran 3:64</span>
+    </div>
+
+    <div class="content-block fade-in">
+      <h3>We Muslims accept anyone as God who fits below four-line definition.</h3>
+      <p>It's logical &amp; it's fair too. <span class="highlight-blue">Kindly rethink</span> and <span class="highlight-blue">check it with your god.</span></p>
+      <ol class="num-list">
+        <li>Say: He is God, The One and Only</li>
+        <li>God, the Eternal, Absolute</li>
+        <li>He neither begets nor is born</li>
+        <li>And there is none Like unto Him.</li>
+      </ol>
+    </div>
+
+    <div class="quote-block fade-in">
+      <blockquote>"Science without religion is lame, religion without science is blind."</blockquote>
+      <cite>- Albert Einstein</cite>
+    </div>
+
+    <div class="content-block fade-in">
+      <h3>If you follow a different religion</h3>
+      <p>Please take a moment to investigate. Spend some time of your life understanding what Islam teaches. All you need to do is be objective. <span class="highlight-red">Put aside controversial topics like hijab and polygamy, you don't understand the wisdom behind them.</span></p>
+      <p><span class="highlight-red">Heart of the Content =&gt;</span> Believe &amp; accept <span class="highlight-green">100%</span> that there is only <span class="highlight-green">One God</span>, with no images or idols &amp; Prophet MUHAMMAD (PBUH) is Messenger &amp; Servant of God.</p>
+      <p><span class="highlight-red">First</span>, read the <span class="highlight-blue">authentic Quran Translation</span>. Just type the link into Google =&gt; <a href="https://islamic1articles.home.blog">https://islamic1articles.home.blog</a> =&gt; English =&gt; Yusuf Ali.</p>
+      <p><span class="highlight-red">Next</span>, visit =&gt; <a href="https://alhidaayah.com/live/">https://alhidaayah.com/live/</a> to know more about Islam &amp; other religions <span class="highlight-red">(WITH PROOFS)</span> 240p videos quality free or for <span class="highlight">proofs</span> kindly download PDF from <a href="https://github.com/PeaceQueries/Peace_PDF">https://github.com/PeaceQueries/Peace_PDF</a>. GitHub is kind of social media platform</p>
+      <p><span class="highlight-blue">Did you know that Muslims worship Vishnu (God) but for the answer, read further</span></p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SECTION 2: QURAN CHALLENGE & WHY RELIGION (Image 2) ===== -->
+<div class="section-divider"></div>
+<div class="full-width section-gradient-blue" id="why-religion">
+  <div class="inner">
+    <p class="section-label fade-in">Page 2</p>
+    <h2 class="section-title fade-in" style="color:#2997ff;">The Quran &amp; Why Religion</h2>
+
+    <div class="content-block fade-in">
+      <h3 style="color:#ff453a;">The Unmet Challenge</h3>
+      <p><span class="highlight-red">Disproving a single thing mentioned in the QURAN is a challenge that remains unmet, even though it has many falsification tests to try.</span></p>
+      <p><span class="highlight">Example =&gt;</span> Unbeatable Challenges from the QURAN for Over 1400 Years has been to produce a single Surah(chapter) like the Surahs.</p>
+      <p>A Surah, in terms of beauty, eloquence, depth, and meaning, like those in the Quran, has not been produced.</p>
+    </div>
+
+    <div class="content-block fade-in">
+      <h3 style="color:#ff453a;">Why should human beings follow religion? Isn't being kind to all sufficient?</h3>
+      <p><span class="highlight-blue">What is the definition of kindness, &amp; Who will tell you what is good &amp; bad?</span> So, as religion (Islam) basically means a way of life. If you get a complicated machine, you receive an instruction manual to understand it. Similarly, as humans are the most complex machines on Earth, So Don't you think this requires an instruction manual?</p>
+      <p><span class="highlight">The Quran serves as this instruction manual</span> because we know our creator(God) knows what is good and bad for us. Almighty God has sent only one religion <span class="highlight-red">Allah</span> says clearly in the <span class="highlight-blue">Quran Chapter 3 verse 19 =&gt;</span> The only religion is acceptable in the sight of Almighty God is Islam."</p>
+    </div>
+
+    <div class="content-block fade-in">
+      <h3>The Final Message</h3>
+      <p><span class="highlight-blue">Whenever the almighty god sent an instruction manual</span>, the manual changed over the passage of time. Allah (SWT) knew that the human being may not be able to grasp the complete message of the Quran. As it is mentioned in the <span class="highlight-red">Bible Gospel of John, ch-16:ver:12-14. Jesus (PBUH) said, I still have many things to say to you, but you can't bear them now. However, when He, the Spirit of truth, has come, He will guide you into all truth; for he shall not speak of himself; but whatsoever he shall hear, that shall he speak... he shall glorify me.</span></p>
+      <div class="note-callout green">
+        <span class="note-icon">*</span>
+        <p><strong>Note:</strong> No Muslim is a muslim if he/she doesn't believe in <span class="highlight-blue">Jesus (PBUH)</span>.</p>
+      </div>
+      <p>"<span class="highlight-red">Allah (SWT)</span> at this time, <span class="highlight-green">now</span> the human beings can grasp the last and final message, the <span class="highlight-green">Quran</span>. That's why everyone in the world today should follow the final messenger, Prophet <span class="highlight-blue">Muhammad(PBUH)</span> &amp; the <span class="highlight-green">Quran</span>.</p>
+      <p>So <span class="highlight-blue">Islam came in its complete form 1400 years ago</span>. All the previous revelations, the basic message was the same, believing in <span class="highlight-green">one God (No Idols Or Images)</span>. All the scriptures that came before were <span class="highlight">time-bound</span>. They were meant only for a particular group of people. The message was supposed to be followed until the new message came. <span class="highlight-red">When the last and final revelation was revealed</span> and no other revelations are going to come. <span class="highlight-red">Allah takes it upon himself to preserve it.</span> It is not only meant for the Muslims of the Arabs, it's meant for the <span class="highlight">whole of humanity</span>.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SECTION 3: WHY RELIGION CONTINUED (Image 3) ===== -->
+<div class="section-divider"></div>
+<div class="full-width section-dark">
+  <div class="inner">
+    <p class="section-label fade-in">Page 3</p>
+    <h2 class="section-title fade-in" style="color:#30d158;">The Need for Guidance</h2>
+
+    <div class="note-callout blue fade-in">
+      <span class="note-icon">*</span>
+      <p><strong>Note :</strong> If you have any doubts about Islam, kindly Ask at <a href="https://islamqa.info/en">https://islamqa.info/en</a></p>
+    </div>
+
+    <div class="content-block fade-in">
+      <h3 style="color:#30d158;">Allah shows you from the start what is good &amp; bad for us.</h3>
+      <p>It's like walking in a forest without knowing which fruits are safe to eat. If you pick the wrong one, you might get sick. So, it's smart to ask someone who knows about the forest and its fruits. Similarly, in life, it's wise to seek guidance from someone who knows what's best for you. If you behave like a person, not asking anyone, you may stumble.</p>
+    </div>
+
+    <div class="content-block fade-in">
+      <h3>Why You Can't Prove Morality Without Religion</h3>
+      <p><strong>Further,</strong> You can't prove <span class="highlight">logically &amp; scientifically why robbing is bad for me</span>. If you argue that the police will catch you, I can assure you that I have influence over them. <span class="highlight-red">The only way I see it as wrong is because of religion.</span> That even if I robbed and if I go without punishment in this world, In the hereafter, I will be punished. If I don't follow religion, I can be a robber.</p>
+      <p><span class="highlight-green">Imagine</span> if a person kills <span class="highlight-red">100 people</span>. We can only kill (punish) him once. But what about the rest of the <span class="highlight-red">99 people?</span> So, logically, we can't give any punishment.</p>
+      <p>But Almighty God can punish him in the hereafter, He can kill him 99 times. Here, we cannot. Therefore, to be a good human being, you have to believe in religion. <span class="highlight-red">You have to identify who our God is</span> and understand what is considered good and bad for human beings according to religious teachings. Only then will <span class="highlight-blue">you be on the straight path.</span></p>
+      <div class="note-callout green">
+        <span class="note-icon">*</span>
+        <p><strong>Note:</strong> Only Quran is in its <span class="highlight-green">100% pure form &amp; passes scientific tests</span> where other holy books do not</p>
+      </div>
+    </div>
+
+    <div class="verse-block fade-in">
+      <p><strong>Purpose Of Our Life =&gt;</strong> <span class="highlight-blue">Quran Chapter 51 Verse 56 =&gt;</span> And I (Allah) created not the jinns &amp; humans except they should worship Me (Alone).</p>
+      <span class="verse-ref">Quran 51:56</span>
+    </div>
+
+    <div class="verse-block blue fade-in">
+      <p><span class="highlight-blue">Quran Chapter 4 Verse 82 =&gt;</span> Do they not consider the Qur'an (with care)? Had it been from other Than Allah, they would surely have found therein Much contradiction.</p>
+      <span class="verse-ref">Quran 4:82</span>
+    </div>
+
+    <div class="note-callout fade-in">
+      <span class="note-icon">*</span>
+      <p><strong>Note:</strong> This entire content may not satisfy you but All your logical questions has answers In Islam</p>
+    </div>
+
+    <div class="content-block fade-in" style="background: linear-gradient(135deg, #1a0a0a, #1d1d1f); border: 1px solid rgba(255,69,58,0.2);">
+      <h3 style="color:#ff453a; text-align:center;">Islam is maligned by two things: Terrorism &amp; Women Rights</h3>
+      <p>Many in the USA, including women, are embracing Islam. If Islam doesn't give rights to women, why are they accepting it? <span class="highlight-red">To know more on the topic please copy &amp; paste the 3 titles on Youtube &amp; Change Country settings to Malaysia in Youtube =&gt;</span></p>
+      <ol class="num-list">
+        <li>WOMEN'S RIGHTS IN ISLAM - LIBERATED OR SUBJUGATED? LECTURE + Q &amp; A | DR ZAKIR NAIK.</li>
+        <li>ISLAM'S VIEW ON TER-OR-ISM AND JI-HA-AD | LECTURE + Q &amp; A | DR ZAKIR NAIK.</li>
+        <li>MISCONCEPTIONS ABOUT ISLAM|DUBAI PART 1 &amp; 2| LECTURE + Q &amp; A | DR ZAKIR NAIK</li>
+      </ol>
+    </div>
+
+    <div class="verse-block red fade-in">
+      <p><span class="highlight-blue">Quran Chapter 5 Verse 32 =&gt;</span> if any one kill a person - unless it be for murder or for spreading mischief in the land - it would be as if <span class="highlight-red">he kill the whole humanity</span> and if any one saved a life, it would be as if <span class="highlight-green">he saved the life of the whole humanity.</span></p>
+      <span class="verse-ref">Quran 5:32</span>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SECTION 4: CONCEPT OF GOD TABLE (Image 4) ===== -->
+<div class="section-divider"></div>
+<div class="full-width section-gradient-green" id="one-god">
+  <div class="inner">
+    <p class="section-label fade-in">Page 4</p>
+    <h2 class="section-title fade-in" style="color:#30d158;">Concept of God in World's Major Religions</h2>
+    <p class="section-subtitle fade-in"><span class="highlight-red">For Video reference with Q &amp; A with Non Muslims</span> Just type the title in youtube =&gt; <span class="highlight-blue">Concept of God in World's Major Religions</span> - Dr. Zakir Naik | Chennai, India</p>
+
+    <div class="fade-in" style="overflow-x:auto;">
+      <table class="religion-table">
+        <thead>
+          <tr>
+            <th>Religion</th>
+            <th>Verse</th>
+            <th>Reference</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <span class="religion-name">Hinduism</span>
+              <span class="religion-note" style="color:#ff453a;">Note : The best holy books in Hinduism are the Vedas, Upanishads, Bhagavad Gita, etc.</span>
+            </td>
+            <td>
+              Ekam Brahm, dvitiya naste neh na naste kinchan <span class="table-highlight-red">means</span> There is <span class="table-highlight">only one God</span>, not the second; not at all, not at all, not in the least bit.<br><br>
+              Sages (learned Priests) call <span class="table-highlight">one God</span> by many names.<br><br>
+              <span class="table-highlight-red">There is no image of Him.</span>
+            </td>
+            <td>
+              The Brahma Sutra of Hindu Vedanta<br><br>
+              Rig Veda Book 1 Hymn 164 Verse - 46<br><br>
+              <span class="table-highlight-red">Yajur Veda Ch-32 Ver-3</span>
+            </td>
+          </tr>
+          <tr>
+            <td><span class="religion-name">Christianity</span></td>
+            <td>My Father is Greater than I.</td>
+            <td>Bible John Ch-14 Ver- 28</td>
+          </tr>
+          <tr>
+            <td><span class="religion-name">Christianity and Judaism</span></td>
+            <td>Shama Israelu Adonai Ila Hayno Adna Ikhad <span class="table-highlight-red">means</span> Hear, O Israel: The Lord our God is <span class="table-highlight">one Lord</span>.</td>
+            <td>Bible Mark Ch - 12 Ver - 29 | Bible Deuteronomy Ch-6 Ver- 4</td>
+          </tr>
+          <tr>
+            <td><span class="religion-name">Judaism</span></td>
+            <td>Thou shalt have none other gods before me.<br><span class="table-highlight-red">Thou shalt not make thee any graven image</span>, or any likeness of anything that is in heaven above...</td>
+            <td>Bible - Deuteronomy Chapter - 5 Verse - 7-9</td>
+          </tr>
+          <tr>
+            <td><span class="religion-name">Islam</span></td>
+            <td><span class="table-highlight-red">1)</span> <span class="table-highlight">Say: He is God, The One and Only</span>. 2) God, the Eternal, Absolute 3) He neither begets nor is born. 4) <span class="table-highlight-red">And there is none Like unto Him.</span></td>
+            <td>Quran Chapter 112</td>
+          </tr>
+          <tr>
+            <td>
+              <span class="religion-name">Zoroastrianism</span>
+              <span class="religion-note" style="color:#ff453a;">Note : The Parsi Scriptures consist of 'Dasatir' &amp; Vesta'</span>
+            </td>
+            <td>
+              1) <span class="table-highlight">He is One.</span> 2) <span class="table-highlight-red">Nothing resembles Him.</span><br>
+              3) He is without an origin or end.<br>
+              4) He has no father or mothers, wife or son.<br>
+              5) <span class="table-highlight-red">Without a body or form</span>
+            </td>
+            <td>Qualities of God according to Dasatir</td>
+          </tr>
+          <tr>
+            <td><span class="religion-name">Sikhism</span></td>
+            <td><span class="table-highlight-red">There exists but one God</span>, who is called the true, the creator, free from fear and hate, immortal, not begotten, self-existent, Great &amp; Compassionate.</td>
+            <td>Sri Guru Granth Sahib - Volume 1 Japuji, verse 1</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="content-block fade-in">
+      <p><strong>Note:</strong> <span class="highlight-red">Jesus (pbuh) never claimed divinity</span> there is not a single unequivocal statement in the Bible where He says, "I am God" or where he says, "worship me"</p>
+      <p><span class="highlight-red">GREATEST SIN In Islam Is SHIRK.</span> It means sharing or associating partners with Allah and is equivalent to idolatry. <span class="highlight">Below Quran Verse refers to those people who die while doing <u>Shirk</u> If a non-muslim repents for Shirk &amp; accepts islam &amp; does not go back to his false way of life and if he/she remains &amp; dies as a muslim, then inshallah Allah will grant him paradise.</span> Quran 4:48 =&gt; <span class="highlight-blue">Allah forgives not that partners should be set up with Him</span> but He forgives anything else, to whom He pleases to set up partners with Allah is to devise a sin most heinous indeed.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SECTION 5: MUHAMMAD IN ALL RELIGIONS (Image 5) ===== -->
+<div class="section-divider"></div>
+<div class="full-width section-gradient-gold" id="muhammad">
+  <div class="inner">
+    <p class="section-label fade-in">Page 5</p>
+    <h2 class="section-title fade-in" style="color:#ffd60a;">MUHAMMAD (PBUH) Arrival Mentioned IN ALL RELIGIONS</h2>
+    <p class="section-subtitle fade-in"><span class="highlight-red">For Video reference with Q &amp; A with Non Muslims</span> Just type the title in youtube =&gt; <span class="highlight-blue">Muhammad (pbuh) in the Various World Religious Scriptures</span> - Dr. Zakir Naik</p>
+
+    <div class="fade-in" style="overflow-x:auto;">
+      <table class="religion-table">
+        <thead>
+          <tr>
+            <th>Religion</th>
+            <th>Verse</th>
+            <th>Reference</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <span class="religion-name">Hinduism</span>
+              <span class="religion-note" style="color:#ff453a;">Note : The best holy books are the Vedas, Upanishads, Bhagavad Gita, etc.</span>
+            </td>
+            <td>"<span class="table-highlight-red">Ahmed</span> acquired from his Lord the knowledge of eternal law. I received light from him just as from the sun."</td>
+            <td>Sam Veda Book II Hymn 6 verse 8.<br><br>The name of the <span class="table-highlight-red">Prophet as Ahmed</span> since Ahmed is an Arabic name. Many translators misunderstood it to be <span class="table-highlight-red">'Ahm at hi'</span> and translated the mantra as, "I alone have acquired the real wisdom of my father."</td>
+          </tr>
+          <tr>
+            <td><span class="religion-name">Christianity</span></td>
+            <td>And I will pray the Father, and He shall give you <span class="table-highlight-red">another comforter</span>, that he may abide with you forever.</td>
+            <td>Bible - John Chapter-14 Verse-16<br><br>Jesus (pbuh) prophesied the coming of the <span class="table-highlight-red">'Comforter'</span> - Muhammad (pbuh).</td>
+          </tr>
+          <tr>
+            <td><span class="religion-name">Judaism</span></td>
+            <td>"Hikko Mamittakim we kullo <span class="table-highlight-red">Muhammadim</span> Zehdoodeh wa Zahraee Bayna Jerusalem <span class="table-highlight-red">means</span> "His mouth is most sweet: yea, he is altogether lovely. This is my beloved, and this is my friend, O daughters of Jerusalem."</td>
+            <td>The Bible - Song of Solomon Chapter - 5 Verse -16<br><br><span class="table-highlight-red">MUHAMMAD (PBUH) MENTIONED BY NAME.</span></td>
+          </tr>
+          <tr>
+            <td>
+              <span class="religion-name">Zoroastrianism</span>
+              <span class="religion-note" style="color:#ff453a;">Note: The Parsi Scriptures consist of 'Dasatir' and 'Vesta' or 'Zend Avesta'</span>
+            </td>
+            <td><span class="table-highlight-red">Soashyant</span> will be the last Prophet.</td>
+            <td>Bundahishn Chapter 30 Verses 6-27<br><br><span class="table-highlight-red">Soashyant</span> means the 'praised one' (refer Hastings Encyclopedia) which translated in Arabic means Muhammad (pbuh)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="content-block fade-in">
+      <p><span class="highlight-red">Note :</span> Many people have a misconception that Prophet Muhammad (pbuh) is the founder of the religion of Islam. In fact, Islam <span class="highlight">is in existence</span> since man first set foot on earth. God Almighty has sent several Prophets and revelations.</p>
+      <p><span class="highlight-red">Note :</span> There are many more references &amp; proofs apart from the ones mentioned in this entire content. Due to space limitations, they have been avoided.</p>
+      <p><span class="highlight-red">He who hates prophet Muhammad (pbuh) will have no hope in the hereafter(next endless life)</span></p>
+    </div>
+
+    <div class="verse-block gold fade-in">
+      <p><span class="highlight-blue">Quran ch-108:1-3 =&gt;</span> To you have We granted the fount (of Abundance). Therefore to your Lord turn in Prayer and Sacrifice. For he who hates you, He will be cut off (from Future Hope).</p>
+      <span class="verse-ref">Quran 108:1-3</span>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SECTION 6: QURAN & SCIENCE (Image 6 & 7) ===== -->
+<div class="section-divider"></div>
+<div class="full-width section-gradient-blue" id="quran-science">
+  <div class="inner">
+    <p class="section-label fade-in">Pages 6 &amp; 7</p>
+    <h2 class="section-title fade-in" style="color:#2997ff;">Quran &amp; Modern Science</h2>
+    <p class="section-subtitle fade-in"><span class="highlight-red">For Video reference</span> Just type the title in youtube =&gt; <span class="highlight-blue">Is the Qur'an God's Word? by Dr Zakir Naik Full Lecture</span></p>
+
+    <div class="content-block fade-in" style="border: 1px solid rgba(48,209,88,0.2);">
+      <h3 style="color:#30d158;">An educated atheist believes that scientific knowledge is the ultimate test.</h3>
+    </div>
+
+    <div class="content-block fade-in">
+      <h3>Scientific Facts in the Quran</h3>
+      <p>Aforementioned are just <span class="highlight-blue">a few Scientific facts</span> mentioned in the <span class="highlight">QURAN</span> that are <span class="highlight-green">100% correct</span>. <span class="highlight-red">How can a man state these things 1400 years ago</span>, considering that many technologies were invented after that? Let's <span class="highlight-red">take some scientists as examples</span> - <span class="highlight-blue">Albert Einstein</span> and <span class="highlight-blue">Isaac Newton</span> are mainly known for <span class="highlight-blue">physics</span>. They were known for their respective subjects, and most of them spent the majority of their time in those fields. However, <span class="highlight-red">Prophet Muhammad PBUH lived for 23 years as a prophet in the world</span>, and the <span class="highlight-green">QURAN</span> described him as an <span class="highlight">unlettered Prophet.</span></p>
+    </div>
+
+    <div class="content-block fade-in" style="border: 1px solid rgba(255,69,58,0.2);">
+      <h3 style="color:#ff453a;">Theory of Probability</h3>
+      <p><span class="highlight-red">(If you have two options, out of which one is right and one is wrong, the chances that you will choose the right one is half which is 50 %)</span></p>
+    </div>
+
+    <div class="content-block fade-in">
+      <h3>What is mentioned in the QURAN if someone makes a wild guess? And What is the probability of it?</h3>
+      <p><span class="highlight-red">MOONLIGHT IS EITHER REFLECTED LIGHT OR ITS OWN LIGHT ?</span>. The chance to be right is 50%, which is <span class="highlight-green">1/2</span>.</p>
+      <p><span class="highlight-red">SHAPE OF THE EARTH ?</span> It can be a TRIANGLE, RECTANGLE, SQUARE, etc. So, let's take 10 shapes. The chance to be right is <span class="highlight-green">1/10</span>.</p>
+      <p><span class="highlight-red">HOW ARE HUMAN BEINGS CREATED ?</span> THE MATERIAL CAN BE GOLD, IRON, PLASTIC, etc. Let's take 1000 items. The chance to be right is <span class="highlight-green">1/1000</span>.</p>
+      <p><span class="highlight-blue">Calculation - (1/2) x (1/10) x (1/1000) = 0.00005</span> (According to MATHEMATICS, it is nearly zero). With these three things alone, <span class="highlight-red">it's enough to prove that QURAN is from GOD</span>. It is <span class="highlight-green">beyond human capacity</span> to make all the guesses correct without a <span class="highlight">single mistake.</span></p>
+    </div>
+
+    <div class="content-block fade-in">
+      <h3>The Creator</h3>
+      <p>The only logical answer to the 2nd question, who could have mentioned all these scientific facts 1400 years ago before they were discovered is exactly the same answer initially given by the atheist for the question <span class="highlight-red">who will be the first person to be able to tell the mechanism</span> of the unknown object. It is the 'Creator'. Another name for this 'Creator, of the whole universe and its contents, in the English language is <span class="highlight-green">'God'</span>, or more <span class="highlight-blue">appropriate</span> in the Arabic language is <span class="highlight-green">'ALLAH.'</span></p>
+      <p><span class="highlight-red">A famous scientist, Francis Bacon has rightly said, a little knowledge of science makes you an atheist, but in-depth study of science makes you a believer in God.</span> Scientists today are eliminating models of God, but they are not eliminating God.</p>
+      <p><span class="highlight-red">Prof Tejasen</span> conducted research on <span class="highlight-blue">pain receptors</span> and was impressed by the scientific accuracy of the Qur'anic verse and He publicly accepted Islam.</p>
+    </div>
+
+    <div class="verse-block fade-in">
+      <p><span class="highlight-red">Allah himself delivers the message to every human being about the basic message of Islam, such as the oneness of God etc.</span> <span class="highlight-blue">Quran 41 : 53 =&gt;</span> <span class="highlight-green">Soon will We show them our Signs in the (furthest) regions (of the earth), and in their own souls, until it becomes clear to them that this is the Truth. Is it not enough that thy Lord doth witness all things?</span></p>
+      <span class="verse-ref">Quran 41:53</span>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SECTION 7: LIFE AFTER DEATH (Image 8) ===== -->
+<div class="section-divider"></div>
+<div class="full-width section-gradient-green" id="life-after-death">
+  <div class="inner">
+    <p class="section-label fade-in">Page 8</p>
+    <h2 class="section-title fade-in" style="color:#30d158;">Who would like to undergo this test? &amp; Is there life After Death?</h2>
+    <p class="section-subtitle fade-in">Contact Me At My Instagram ID =&gt; <a href="#" style="color:#2997ff;">Peace_Can_Heal</a></p>
+
+    <div class="content-block fade-in">
+      <h3>The Test of Life</h3>
+      <p>Allah SWT asked us, "<span class="highlight-red">Who would like to undergo this test?</span>" Of course, you and I don't remember, on the Day of Judgment again, we will remember. So Allah says in the Quran that the mountains shuddered. We, human beings, were fools. We accepted the challenge. If we pass, we become higher than the angels. You know, angels are creations of Allah who follow everything that Allah says. They have no option and they can't go against Allah. However, we human beings have free will and we have the option to go against Allah or follow the commandment of Allah.</p>
+      <p>If we follow the commandment of Allah after being given the free will, <span class="highlight-green">we become higher than the Angels and live in Paradise forever.</span> If we don't follow, we go below.</p>
+      <p>so Allah asked us, do you want to undergo the test where all the others are Muslims? The trees and mountains are Muslim. So we were human beings who said we wanted to undergo the test. so Allah created a new creation <span class="highlight-red">"human beings"</span> who had a free will of their own and we were the people who opted and now we are undergoing the test, and guide is the Quran. The instruction manual of the human being is the Quran.</p>
+      <p>When you appear for an examination, there's a textbook right? The textbook of the examination is the Quran and the guide of the Quran is the sahih Hadith.</p>
+      <p>Now we are undergoing the test in this world. A test for the hereafter and that's the reason we are trying to score higher marks. If we pass, we go to heaven. If we fail, we go to hell. That is the reason we say that the minimum thing to come just pass marks is to <span class="highlight-blue">believe in one God and believe Prophet Muhammad is the messenger &amp; servant of god.</span></p>
+    </div>
+
+    <div class="verse-block fade-in">
+      <p><span class="highlight-blue">Quran Chapter 33 : Verse 72 =&gt;</span> We did indeed offer the Trust to the Heavens and the Earth and the Mountains; but they refused to undertake it, being afraid thereof: but man undertook it;- He was indeed unjust and foolish.</p>
+      <span class="verse-ref">Quran 33:72</span>
+    </div>
+
+    <div class="verse-block blue fade-in">
+      <p><span class="highlight-blue">Quran Chapter 67 : Verse 2 =&gt;</span> He Who created Death and Life, that He may try which of you is best in deed: and He is the Exalted in Might, Oft-Forgiving.</p>
+      <span class="verse-ref">Quran 67:2</span>
+    </div>
+
+    <div class="content-block fade-in" style="border: 1px solid rgba(255,69,58,0.2);">
+      <h3 style="color:#ff453a;">Why is Islam the best way of life?</h3>
+      <p><span class="highlight-red">Most religions say good things and discourage crimes</span> <span class="highlight">but Islam uniquely provides a practical way to achieve a state</span> in which people will not <span class="highlight-red">rob or molest</span>, etc. The USA is an advanced country, but it has the highest rates of robbery in the world. <span class="highlight-green">In Islam we have System Called Zakat.</span> if you implement Islamic Sharia in the USA, <span class="highlight-red">where every rich man with savings of more than 85 grams of gold should give 2.5% of that excess wealth in charity</span>, which is zakat, and if any person robs, chop off his or her hand as punishment. Surely the rate of robbery will decrease. It's a practical law. Implement Sharia and you get results. In Saudi Arabia, the rate of robbery is very low.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SECTION 8: KALKI AVATAR / FINAL (Image 9) ===== -->
+<div class="section-divider"></div>
+<div class="full-width section-gradient-gold">
+  <div class="inner">
+    <p class="section-label fade-in">Page 9</p>
+    <h2 class="section-title fade-in" style="color:#ffd60a;">MUHAMMAD (PBUH) Prophesied in Kalki Purana</h2>
+    <p class="section-subtitle fade-in">This prophecy of kalki avatar - the name of the father of Prophet Muhammad (pbuh) &amp; other details match</p>
+
+    <div class="content-block fade-in">
+      <h3>Prophecies that Match</h3>
+      <ol class="num-list">
+        <li>Kalki Purana 2:4 =&gt; He (Kalki) will be born to the chief of the city... the name of the father of Prophet Muhammad(pbuh)'s (Abdullah) in the city of (Makkah) in the (Arabian peninsula)</li>
+        <li>Kalki Purana 2:5 =&gt; He (Kalki) will be born on the 12th of the month... the name of his mother would be 'Sumati' which means peace or calm &amp; 'Amina' also means peace or calm</li>
+        <li>Kalki Purana 2:11 =&gt; Deva (God) One along with the angels... the mother of Prophet Muhammad (pbuh) was known to have seen angels &amp; Supernatural forces</li>
+        <li>Prophet had 4 main companions</li>
+      </ol>
+    </div>
+
+    <div class="content-block fade-in">
+      <h3>A Personal Message</h3>
+      <p>In my opinion, having done some research on comparative religion, I have chosen to live as a Muslim. The purpose of this content is not to hurt anyone's feelings; my intention is only to share the truth. There's a clear difference between hurting feelings and telling the truth. These aforementioned things become true, then the disbelievers will be in <span class="highlight-red">eternal hell</span>. This is very risky. But the same content has been told in all the religious scriptures.</p>
+      <p><span class="highlight-red">and nobody can disprove a single thing in the Quran.</span> God has given us many chances to disprove but no one has been able to do so. May <span class="highlight-green">Allah (God)</span> guide us all.</p>
+      <p>We as parents always remind the child in five years, they might say, "Five more is a lot," but once he starts believing in it, he should follow <span class="highlight-green">Islam</span>, the sooner the better.</p>
+      <p>This content is not my own words all the content is from <span class="highlight-blue">Dr. Zakir Naik</span> &amp; Quran and I understood and compiled a good and meaningful content for the entire <span class="highlight-green">humanity</span>.</p>
+    </div>
+
+    <div class="note-callout green fade-in">
+      <span class="note-icon">*</span>
+      <p>If you are a non-muslim and you reach the edge of the hill. You see a man standing. He tells you "Don't jump." But you say, "I have freedom of speech." This is not to protect the body, it's God's way of saving you. Even if you don't believe me, <span style="color:#30d158;">Just verify</span>. <strong>That is all I ask.</strong></p>
+    </div>
+
+    <div class="content-block fade-in" style="text-align:center;">
+      <p style="font-size:1.2rem; color:#ffd60a; font-weight:600;">Allah, They will only say that these things are from the devil, but we say, look at the content and judge by the justice. That is all.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== RESOURCES ===== -->
+<div class="section-divider"></div>
+<div class="full-width section-dark" id="resources">
+  <div class="inner">
+    <p class="section-label fade-in">Resources</p>
+    <h2 class="section-title fade-in">Explore &amp; Verify</h2>
+    <p class="section-subtitle fade-in">Read, watch, and verify the truth with your own eyes.</p>
+
+    <a href="https://islamic1articles.home.blog" class="link-card fade-in" target="_blank">
+      <span class="link-icon">&#128214;</span>
+      <div>
+        <div class="link-text">Read the Authentic Quran Translation</div>
+        <div class="link-desc">islamic1articles.home.blog =&gt; English =&gt; Yusuf Ali</div>
+      </div>
+      <span class="link-arrow">&rsaquo;</span>
+    </a>
+
+    <a href="https://alhidaayah.com/live/" class="link-card fade-in" target="_blank">
+      <span class="link-icon">&#127909;</span>
+      <div>
+        <div class="link-text">Al Hidaayah - Islam &amp; Other Religions (WITH PROOFS)</div>
+        <div class="link-desc">Watch 240p videos quality free</div>
+      </div>
+      <span class="link-arrow">&rsaquo;</span>
+    </a>
+
+    <a href="https://github.com/PeaceQueries/Peace_PDF" class="link-card fade-in" target="_blank">
+      <span class="link-icon">&#128196;</span>
+      <div>
+        <div class="link-text">Download PDF Proofs</div>
+        <div class="link-desc">github.com/PeaceQueries/Peace_PDF</div>
+      </div>
+      <span class="link-arrow">&rsaquo;</span>
+    </a>
+
+    <a href="https://islamqa.info/en" class="link-card fade-in" target="_blank">
+      <span class="link-icon">&#10067;</span>
+      <div>
+        <div class="link-text">Have Doubts? Ask Here</div>
+        <div class="link-desc">islamqa.info/en</div>
+      </div>
+      <span class="link-arrow">&rsaquo;</span>
+    </a>
+  </div>
+</div>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-links">
+      <div class="footer-col">
+        <h4>Learn More</h4>
+        <a href="https://islamic1articles.home.blog" target="_blank">Quran Translation</a>
+        <a href="https://alhidaayah.com/live/" target="_blank">Al Hidaayah</a>
+        <a href="https://islamqa.info/en" target="_blank">Islam Q&amp;A</a>
+      </div>
+      <div class="footer-col">
+        <h4>Video References</h4>
+        <a href="#">Concept of God in World's Major Religions - Dr. Zakir Naik</a>
+        <a href="#">Muhammad (pbuh) in the Various World Religious Scriptures</a>
+        <a href="#">Is the Qur'an God's Word? - Dr. Zakir Naik</a>
+      </div>
+      <div class="footer-col">
+        <h4>Topics</h4>
+        <a href="#">Women's Rights in Islam</a>
+        <a href="#">Islam's View on Terrorism</a>
+        <a href="#">Misconceptions About Islam</a>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <a href="#">Instagram: Peace_Can_Heal</a>
+        <a href="https://github.com/PeaceQueries/Peace_PDF" target="_blank">GitHub: PeaceQueries</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>Peace Can Heal &mdash; Content sourced from Dr. Zakir Naik &amp; The Holy Quran</p>
+      <p>May Allah guide us all.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== SCROLL ANIMATION ===== -->
+<script>
+  // Intersection Observer for fade-in animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Close mobile nav on link click
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+      document.getElementById('navbar').classList.remove('open');
+    });
+  });
+
+  // Navbar background on scroll
+  window.addEventListener('scroll', () => {
+    const nav = document.getElementById('navbar');
+    if (window.scrollY > 50) {
+      nav.style.background = 'rgba(29,29,31,0.98)';
+    } else {
+      nav.style.background = 'rgba(29,29,31,0.92)';
+    }
+  });
+</script>
+
+</body>
+</html>

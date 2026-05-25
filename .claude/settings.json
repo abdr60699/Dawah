@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls -la /Users/abde/Dev/Abdul/dawah/.claude/ 2>&1; mkdir -p /Users/abde/Dev/Abdul/dawah/.claude/skills/typography && ls /Users/abde/Dev/Abdul/dawah/.claude/skills/typography/)",
+      "Edit(/.claude/skills/typography/**)"
+    ],
+    "additionalDirectories": [
+      "/Users/abde/Dev/Abdul/dawah/.claude/skills"
+    ]
+  }
+}

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <base href="$FLUTTER_BASE_HREF">
+
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Peace Can Heal - Discover The Truth. Explore what all major world religions say about One God and Prophet Muhammad (PBUH). Read with an open mind.">
+  <meta name="keywords" content="Islam, Quran, One God, Prophet Muhammad, Dawah, Peace, Religion, Truth">
+  <meta name="author" content="Peace Can Heal">
+  <meta name="theme-color" content="#f5f5f7">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Peace Can Heal - Discover The Truth">
+  <meta property="og:description" content="Explore what all major world religions say about One God and Prophet Muhammad (PBUH).">
+  <meta property="og:type" content="website">
+
+  <!-- iOS meta tags & icons -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Peace Can Heal">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png"/>
+
+  <title>Peace Can Heal — Discover The Truth</title>
+  <link rel="manifest" href="manifest.json">
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background-color: #f5f5f7;
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+    }
+    /* Loading screen */
+    .loading {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .loading p {
+      color: #86868b;
+      font-size: 14px;
+      letter-spacing: 0.5px;
+    }
+    .spinner {
+      width: 28px;
+      height: 28px;
+      border: 2.5px solid #e5e5e7;
+      border-top-color: #0071e3;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="loading" id="loading">
+    <div class="spinner"></div>
+    <p>Loading...</p>
+  </div>
+  <script>
+    window.addEventListener('flutter-first-frame', function() {
+      var el = document.getElementById('loading');
+      if (el) el.remove();
+    });
+  </script>
+  <script src="flutter_bootstrap.js" async></script>
+</body>
+</html>
